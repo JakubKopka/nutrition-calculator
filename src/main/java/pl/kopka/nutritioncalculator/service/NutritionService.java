@@ -2,7 +2,7 @@ package pl.kopka.nutritioncalculator.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.kopka.nutritioncalculator.Repository.NutritionRepo;
+import pl.kopka.nutritioncalculator.repository.NutritionRepo;
 import pl.kopka.nutritioncalculator.client.ClientApi;
 import pl.kopka.nutritioncalculator.client.model.Foods;
 import pl.kopka.nutritioncalculator.model.Ingredient;
