@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 
 @Controller
-@CrossOrigin(origins = { "http://localhost:3000" }, allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin
 @RequestMapping("/api/nutrition")
 public class NutritionController {
     Logger logger = Logger.getLogger(NutritionService.class.getName());
@@ -33,7 +33,7 @@ public class NutritionController {
     @PostMapping
     public ResponseEntity<?> getIngredientInfo(@RequestBody NewIngredient newIngredient) throws JsonProcessingException {
         try {
-            List<Ingredient> ingredientList = (List<Ingredient>) nutritionService.getIngredientsInfo(newIngredient);
+            List<Ingredient> ingredientList = nutritionService.getIngredientsInfo(newIngredient);
             return new ResponseEntity<>(ingredientList, HttpStatus.OK);
         } catch (HttpClientErrorException ex) {
             logger.log(Level.WARNING, ex.getMessage());
