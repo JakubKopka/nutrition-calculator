@@ -1,13 +1,9 @@
 package pl.kopka.nutritioncalculator.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.kopka.nutritioncalculator.Repository.NutritionRepo;
 import pl.kopka.nutritioncalculator.client.ClientApi;
-import pl.kopka.nutritioncalculator.client.model.ErrorApi;
 import pl.kopka.nutritioncalculator.client.model.Foods;
 import pl.kopka.nutritioncalculator.model.Ingredient;
 import pl.kopka.nutritioncalculator.model.NewIngredient;
@@ -16,8 +12,6 @@ import pl.kopka.nutritioncalculator.model.SumIngredients;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Service
 public class NutritionService {

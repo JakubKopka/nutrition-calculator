@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import pl.kopka.nutritioncalculator.client.model.ErrorApi;
-import pl.kopka.nutritioncalculator.client.model.Foods;
 import pl.kopka.nutritioncalculator.model.SumIngredients;
 import pl.kopka.nutritioncalculator.service.NutritionService;
 import pl.kopka.nutritioncalculator.model.Ingredient;
@@ -20,11 +19,10 @@ import java.util.logging.Logger;
 
 
 @Controller
-@CrossOrigin
+@CrossOrigin(origins = { "http://localhost:3000" }, allowedHeaders = "*", allowCredentials = "true")
 @RequestMapping("/api/nutrition")
 public class NutritionController {
     Logger logger = Logger.getLogger(NutritionService.class.getName());
-
 
     private NutritionService nutritionService;
 
@@ -35,7 +33,7 @@ public class NutritionController {
     @PostMapping
     public ResponseEntity<?> getIngredientInfo(@RequestBody NewIngredient newIngredient) throws JsonProcessingException {
         try {
-            List<Ingredient> ingredientList = nutritionService.getIngredientsInfo(newIngredient);
+            List<Ingredient> ingredientList = (List<Ingredient>) nutritionService.getIngredientsInfo(newIngredient);
             return new ResponseEntity<>(ingredientList, HttpStatus.OK);
         } catch (HttpClientErrorException ex) {
             logger.log(Level.WARNING, ex.getMessage());
