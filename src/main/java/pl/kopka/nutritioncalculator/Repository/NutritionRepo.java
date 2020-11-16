@@ -20,8 +20,9 @@ public class NutritionRepo {
         return ingredients;
     }
 
-    public void add(Ingredient ingredient) {
+    public List<Ingredient> add(Ingredient ingredient) {
         ingredients.add(ingredient);
+        return ingredients;
     }
 
     public void deleteAll() {

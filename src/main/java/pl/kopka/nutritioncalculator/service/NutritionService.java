@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import pl.kopka.nutritioncalculator.Repository.NutritionRepo;
 import pl.kopka.nutritioncalculator.client.ClientApi;
 import pl.kopka.nutritioncalculator.client.model.ErrorApi;
@@ -23,8 +22,6 @@ import java.util.logging.Logger;
 @Service
 public class NutritionService {
 
-    Logger logger = Logger.getLogger(NutritionService.class.getName());
-
     private ClientApi clientApi;
     private Mapper mapper;
     private NutritionRepo nutritionRepo;
@@ -39,24 +36,12 @@ public class NutritionService {
         return ing.getName() + " " + ing.getWeight() + ing.getUnit();
     }
 
-    //TODO
-    // Refactor
-    public ResponseEntity<?> getIngredientsInfo(NewIngredient ing) throws JsonProcessingException {
+    public List<Ingredient> getIngredientsInfo(NewIngredient ing) {
         String queryApi = prepareQuery(ing);
-        try {
-            ResponseEntity<Foods> responseEntity = clientApi.getInfo(queryApi);
-            if (responseEntity.getStatusCode() == HttpStatus.OK) {
-                Ingredient ingredient = mapper.mapToIngredient(responseEntity.getBody());
-                ingredient.setId(getNextId());
-                nutritionRepo.add(ingredient);
-            }
-            return responseEntity;
-        } catch (HttpClientErrorException ex) {
-            logger.log(Level.WARNING, ex.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ObjectMapper().readValue(ex.getResponseBodyAsString(), ErrorApi.class)
-            );
-        }
+        ResponseEntity<Foods> responseEntity = clientApi.getInfo(queryApi);
+        Ingredient ingredient = mapper.mapToIngredient(responseEntity.getBody());
+        ingredient.setId(getNextId());
+        return nutritionRepo.add(ingredient);
     }
 
     public Long getNextId() {
