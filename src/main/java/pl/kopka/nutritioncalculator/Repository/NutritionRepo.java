@@ -1,7 +1,6 @@
 package pl.kopka.nutritioncalculator.Repository;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.web.context.annotation.SessionScope;
 import pl.kopka.nutritioncalculator.model.Ingredient;
 
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-@SessionScope
 public class NutritionRepo {
 
     private List<Ingredient> ingredients;
